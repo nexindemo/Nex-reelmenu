@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Heart, MessageCircle, Plus, Flame, Check, Info, Loader2 } from 'lucide-react';
 import { FoodItem } from '../types';
@@ -27,8 +28,6 @@ const FoodCard: React.FC<FoodCardProps> = ({ item, isActive, onAddToCart }) => {
     let mounted = true;
 
     const fetchImage = async () => {
-        // Trigger generation if active or pre-load
-        // We check if it's the active card or next/prev to load it
         if (!item.image.startsWith('data:')) {
              setIsImageGenerating(true);
              const generatedUrl = await generateDishImage(item);
@@ -39,10 +38,6 @@ const FoodCard: React.FC<FoodCardProps> = ({ item, isActive, onAddToCart }) => {
         }
     };
 
-    // Only trigger if we haven't generated yet (simple check against default unsplash url)
-    // and if it's active or close to being active to save bandwidth/credits
-    // But user wants "once and constant". Cache handles the "once".
-    // We'll trigger it immediately to ensure it replaces the stock image.
     if (isActive) {
         fetchImage();
     }
@@ -171,7 +166,7 @@ const FoodCard: React.FC<FoodCardProps> = ({ item, isActive, onAddToCart }) => {
 
         {/* Price */}
         <div className="text-xl sm:text-2xl font-serif italic text-emerald-400 mb-3 drop-shadow-md font-medium animate-in fade-in slide-in-from-bottom-2 duration-700 delay-100">
-            ₹{item.price}
+            ${item.price.toFixed(2)}
         </div>
 
         {/* Description */}

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { ShoppingBag, ChevronRight, Search, RefreshCw } from 'lucide-react';
 import { FOOD_ITEMS } from './constants';
@@ -69,7 +70,7 @@ const App: React.FC = () => {
     setActiveIndex(0);
   };
 
-  const cartTotal = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+  const cartTotal = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0).toFixed(2);
   const cartCount = cart.reduce((acc, item) => acc + item.quantity, 0);
 
   return (
@@ -94,7 +95,7 @@ const App: React.FC = () => {
             </div>
             <div className="flex flex-col items-start leading-none">
                 <span className="text-[8px] text-neutral-300 font-bold tracking-wider uppercase opacity-80">Total</span>
-                <span className="text-sm font-serif italic text-white">₹{cartTotal}</span>
+                <span className="text-sm font-serif italic text-white">${cartTotal}</span>
             </div>
         </button>
       </div>

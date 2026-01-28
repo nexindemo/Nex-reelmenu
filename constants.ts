@@ -5,7 +5,7 @@ export const FOOD_ITEMS: FoodItem[] = [
   {
     id: '1',
     name: 'Chicken Biryani',
-    price: 180,
+    price: 14.99,
     description: 'Aromatic Hyderabadi biryani cooked to perfection with tender chicken pieces and saffron-infused rice.',
     pairingNote: 'Fizz with **Sparkling Rosewater Limeade**; its floral, zesty fizz perfectly complements the biryani\'s rich, aromatic spice!',
     image: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=800&q=80',
@@ -15,7 +15,7 @@ export const FOOD_ITEMS: FoodItem[] = [
   {
     id: '2',
     name: 'Truffle Mushroom Pasta',
-    price: 320,
+    price: 18.50,
     description: 'Fresh handmade tagliatelle tossed in a creamy truffle mushroom sauce, topped with parmesan shavings.',
     pairingNote: 'Pair with a **Crisp Pinot Grigio**; the acidity cuts through the creamy sauce while highlighting the earthiness of the truffle.',
     image: 'https://images.unsplash.com/photo-1473093226795-af9932fe5856?w=800&q=80',
@@ -25,7 +25,7 @@ export const FOOD_ITEMS: FoodItem[] = [
   {
     id: '3',
     name: 'Spicy Salmon Sushi',
-    price: 450,
+    price: 24.99,
     description: 'Premium salmon sashimi atop vinegared rice, drizzled with our signature spicy mayo and jalapeño slice.',
     pairingNote: 'Try with **Chilled Junmai Sake**; the clean finish balances the heat of the spicy mayo.',
     image: 'https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=800&q=80',
@@ -35,7 +35,7 @@ export const FOOD_ITEMS: FoodItem[] = [
   {
     id: '4',
     name: 'Double Smash Burger',
-    price: 250,
+    price: 15.99,
     description: 'Two smashed beef patties, melted american cheese, pickles, onions, and secret sauce on a toasted brioche bun.',
     pairingNote: 'Classic **Vanilla Bean Milkshake**; the cold creaminess is the ultimate contrast to the hot, savory burger.',
     image: 'https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?w=800&q=80',
@@ -45,7 +45,7 @@ export const FOOD_ITEMS: FoodItem[] = [
   {
     id: '5',
     name: 'Butter Chicken',
-    price: 280,
+    price: 17.50,
     description: 'Tender chicken pieces simmered in a velvety, rich tomato and butter gravy finished with fresh cream and fenugreek.',
     pairingNote: 'Best enjoyed with **Garlic Naan** and a **Mango Lassi** to balance the richness.',
     image: 'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=800&q=80',
@@ -55,7 +55,7 @@ export const FOOD_ITEMS: FoodItem[] = [
   {
     id: '6',
     name: 'Paneer Tikka Masala',
-    price: 240,
+    price: 16.50,
     description: 'Marinated cottage cheese cubes grilled to perfection and tossed in a spicy, onion-tomato based gravy.',
     pairingNote: 'A refreshing **Mint Mojito** cuts through the spices perfectly.',
     image: 'https://images.unsplash.com/photo-1567188040754-5835e059d33b?w=800&q=80',
@@ -65,7 +65,7 @@ export const FOOD_ITEMS: FoodItem[] = [
   {
     id: '7',
     name: 'Masala Dosa',
-    price: 150,
+    price: 12.99,
     description: 'Crispy fermented rice and lentil crepe stuffed with a savory spiced potato filling, served with coconut chutney and sambar.',
     pairingNote: 'Complete the experience with traditional **South Indian Filter Coffee**.',
     image: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=800&q=80',
@@ -75,7 +75,7 @@ export const FOOD_ITEMS: FoodItem[] = [
   {
     id: '8',
     name: 'Chole Bhature',
-    price: 160,
+    price: 11.99,
     description: 'Spicy and tangy chickpea curry served with large, puffy deep-fried leavened bread. A street food favorite.',
     pairingNote: 'A tall glass of **Sweet Lassi** is mandatory to cool down the palate.',
     image: 'https://images.unsplash.com/photo-1626132647523-66f5bf380027?w=800&q=80',
@@ -85,7 +85,7 @@ export const FOOD_ITEMS: FoodItem[] = [
   {
     id: '9',
     name: 'Rogan Josh',
-    price: 350,
+    price: 21.50,
     description: 'Aromatic Kashmiri lamb curry cooked with traditional spices like fennel, cardamom, and Kashmiri red chilies.',
     pairingNote: 'Pairs beautifully with **Saffron Rice** or **Butter Roti**.',
     image: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=800&q=80',

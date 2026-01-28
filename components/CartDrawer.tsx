@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { X, Minus, Plus, ChevronRight, ShoppingBag, Trash2 } from 'lucide-react';
 import { CartItem } from '../types';
@@ -58,7 +59,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose, cart, onUpdate
                         <div className="flex-1 flex flex-col justify-between py-0.5">
                             <div>
                                 <h3 className="font-medium text-white leading-tight text-base group-hover:text-emerald-300 transition-colors">{item.name}</h3>
-                                <p className="text-xs text-neutral-400 mt-1">₹{item.price}</p>
+                                <p className="text-xs text-neutral-400 mt-1">${item.price.toFixed(2)}</p>
                             </div>
                             <div className="flex justify-between items-end">
                               <div className="flex items-center gap-3 bg-neutral-800 w-fit rounded-full px-1.5 py-1 border border-neutral-700">
@@ -76,7 +77,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose, cart, onUpdate
                                       <Plus size={12} />
                                   </button>
                               </div>
-                              <span className="text-white font-medium text-sm">₹{item.price * item.quantity}</span>
+                              <span className="text-white font-medium text-sm">${(item.price * item.quantity).toFixed(2)}</span>
                             </div>
                         </div>
                     </div>
@@ -90,15 +91,15 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ isOpen, onClose, cart, onUpdate
                 <div className="bg-neutral-800/50 p-4 rounded-2xl space-y-2 border border-white/5">
                     <div className="flex justify-between text-neutral-400 text-xs">
                         <span>Subtotal</span>
-                        <span>₹{total}</span>
+                        <span>${total.toFixed(2)}</span>
                     </div>
                     <div className="flex justify-between text-neutral-400 text-xs">
                         <span>Taxes (5%)</span>
-                        <span>₹{Math.round(total * 0.05)}</span>
+                        <span>${(total * 0.05).toFixed(2)}</span>
                     </div>
                     <div className="flex justify-between items-end pt-3 border-t border-white/10 mt-2">
                         <span className="text-white font-bold tracking-wider uppercase text-xs">Total</span>
-                        <span className="text-2xl font-serif text-white">₹{Math.round(total * 1.05)}</span>
+                        <span className="text-2xl font-serif text-white">${(total * 1.05).toFixed(2)}</span>
                     </div>
                 </div>
                 <button 
