@@ -1,3 +1,4 @@
+
 export interface FoodItem {
   id: string;
   name: string;
@@ -16,4 +17,12 @@ export interface CartItem extends FoodItem {
 export interface ChatMessage {
   role: 'user' | 'model';
   text: string;
+}
+
+export interface NutritionData {
+  calories: number;
+  protein: string;
+  carbs: string;
+  fat: string;
+  highlight: string;
 }
