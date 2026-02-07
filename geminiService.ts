@@ -2,11 +2,29 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { ChatMessage, FoodItem, NutritionData } from "./types";
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
+/**
+ * Safely retrieves the API Key from the environment.
+ * Prevents "process is not defined" ReferenceErrors in raw browser environments.
+ */
+const getApiKey = () => {
+  try {
+    // Check if process is defined (Node-like environments or specific bundlers)
+    if (typeof process !== 'undefined' && process.env && process.env.API_KEY) {
+      return process.env.API_KEY;
+    }
+  } catch (e) {
+    // Fall through
+  }
+  return '';
+};
+
+const apiKey = getApiKey();
+const ai = new GoogleGenAI({ apiKey });
 
 const imageCache = new Map<string, string>();
 
 export const generateDishImage = async (item: FoodItem) => {
+  if (!apiKey) return item.image;
   if (imageCache.has(item.id)) return imageCache.get(item.id);
 
   try {
@@ -41,6 +59,8 @@ export const generateDishImage = async (item: FoodItem) => {
 };
 
 export const getChefResponse = async (history: ChatMessage[], currentMessage: string, foodContext: string) => {
+  if (!apiKey) return "I'm sorry, I cannot connect to the kitchen right now. Please set an API key.";
+
   try {
     const systemInstruction = `You are an expert Executive Chef. 
     You are answering a customer about: "${foodContext}".
@@ -63,6 +83,8 @@ export const getChefResponse = async (history: ChatMessage[], currentMessage: st
 };
 
 export const getNutritionInfo = async (item: FoodItem): Promise<NutritionData | null> => {
+  if (!apiKey) return null;
+
   try {
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
@@ -91,6 +113,8 @@ export const getNutritionInfo = async (item: FoodItem): Promise<NutritionData | 
 };
 
 export const searchMenu = async (query: string, items: FoodItem[]) => {
+  if (!apiKey) return items.map(i => i.id);
+
   try {
     const menuContext = items.map(i => ({ id: i.id, name: i.name, description: i.description, tags: i.tags }));
     
