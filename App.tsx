@@ -15,7 +15,7 @@ const App: React.FC = () => {
   const [isOrderPlaced, setIsOrderPlaced] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [filteredItems, setFilteredItems] = useState<FoodItem[]>(FOOD_ITEMS);
-  const [activeFilters, setActiveFilters] = useState<boolean>(false);
+  const [activeFilters, setActiveFilters] = useState(false);
 
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
     const container = e.currentTarget;
@@ -25,30 +25,24 @@ const App: React.FC = () => {
 
   const addToCart = (item: FoodItem) => {
     setCart(prev => {
-        const existing = prev.find(i => i.id === item.id);
-        if (existing) return prev.map(i => i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i);
-        return [...prev, { ...item, quantity: 1 }];
+      const existing = prev.find(i => i.id === item.id);
+      if (existing) return prev.map(i => i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i);
+      return [...prev, { ...item, quantity: 1 }];
     });
   };
 
   const updateQuantity = (id: string, delta: number) => {
-    setCart(prev => prev.map(item => item.id === id ? { ...item, quantity: Math.max(0, item.quantity + delta) } : item).filter(i => i.quantity > 0));
+    setCart(prev => prev.map(i => i.id === id ? { ...i, quantity: Math.max(0, i.quantity + delta) } : i).filter(i => i.quantity > 0));
   };
 
-  const handleCheckout = () => {
-    setIsCartOpen(false);
-    setIsOrderPlaced(true);
-    setCart([]);
-  };
-
-  const handleSearchResults = (matchedIds: string[]) => {
-    if (matchedIds.length === 0) {
-        setFilteredItems(FOOD_ITEMS);
-        setActiveFilters(false);
+  const handleSearchResults = (ids: string[]) => {
+    if (ids.length === 0) {
+      setFilteredItems(FOOD_ITEMS);
+      setActiveFilters(false);
     } else {
-        setFilteredItems(FOOD_ITEMS.filter(item => matchedIds.includes(item.id)));
-        setActiveFilters(true);
-        setActiveIndex(0);
+      setFilteredItems(FOOD_ITEMS.filter(i => ids.includes(i.id)));
+      setActiveFilters(true);
+      setActiveIndex(0);
     }
   };
 
@@ -58,43 +52,41 @@ const App: React.FC = () => {
     setActiveIndex(0);
   };
 
-  const cartTotal = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0).toFixed(2);
-  const cartCount = cart.reduce((acc, item) => acc + item.quantity, 0);
+  const cartTotal = cart.reduce((acc, i) => acc + (i.price * i.quantity), 0).toFixed(2);
+  const cartCount = cart.reduce((acc, i) => acc + i.quantity, 0);
 
   return (
     <div className="relative w-full h-full bg-black overflow-hidden font-sans">
       <div className="absolute top-4 left-6 z-40">
-        <button onClick={() => setIsCartOpen(true)} className="bg-black/40 backdrop-blur-md border border-white/10 rounded-full pl-2 pr-4 py-2 flex items-center gap-3">
-            <div className="relative bg-white/10 p-1.5 rounded-full">
-                <ShoppingBag size={18} className="text-white" />
-                {cartCount > 0 && <div className="absolute -top-1 -right-1 bg-emerald-500 text-white text-[9px] w-4 h-4 flex items-center justify-center rounded-full">{cartCount}</div>}
-            </div>
-            <div className="flex flex-col items-start leading-none">
-                <span className="text-[8px] text-neutral-400 font-bold uppercase">Total</span>
-                <span className="text-sm font-serif italic text-white">${cartTotal}</span>
-            </div>
+        <button onClick={() => setIsCartOpen(true)} className="bg-black/40 backdrop-blur-md border border-white/10 rounded-full px-4 py-2 flex items-center gap-3">
+          <div className="relative">
+            <ShoppingBag size={18} className="text-white" />
+            {cartCount > 0 && <div className="absolute -top-2 -right-2 bg-emerald-500 text-white text-[9px] w-4 h-4 flex items-center justify-center rounded-full font-bold">{cartCount}</div>}
+          </div>
+          <span className="text-sm font-serif italic text-white">${cartTotal}</span>
         </button>
       </div>
 
       <div className="absolute top-4 right-6 z-40 flex gap-3">
         {activeFilters && (
-            <button onClick={clearFilters} className="bg-amber-600 text-white rounded-full p-2.5 shadow-lg"><RefreshCw size={20} /></button>
+          <button onClick={clearFilters} className="bg-amber-600 text-white rounded-full p-2.5 shadow-lg"><RefreshCw size={20} /></button>
         )}
         <button onClick={() => setIsSearchOpen(true)} className="bg-black/40 backdrop-blur-md border border-white/10 rounded-full p-2.5"><Search size={20} className="text-white" /></button>
       </div>
 
-      {filteredItems.length > 0 ? (
-          <div className="w-full h-full overflow-y-scroll snap-y snap-mandatory no-scrollbar" onScroll={handleScroll}>
-            {filteredItems.map((item, index) => <FoodCard key={item.id} item={item} isActive={index === activeIndex} onAddToCart={addToCart} />)}
+      <div className="w-full h-full overflow-y-scroll snap-y snap-mandatory no-scrollbar" onScroll={handleScroll}>
+        {filteredItems.map((item, index) => (
+          <FoodCard key={item.id} item={item} isActive={index === activeIndex} onAddToCart={addToCart} />
+        ))}
+        {filteredItems.length === 0 && (
+          <div className="h-full flex flex-col items-center justify-center p-8 text-center">
+             <p className="text-neutral-400 font-serif text-lg mb-4">Chef couldn't find matches...</p>
+             <button onClick={clearFilters} className="text-emerald-400 font-bold underline">Back to Full Menu</button>
           </div>
-      ) : (
-          <div className="w-full h-full flex flex-col items-center justify-center text-white p-4">
-              <p className="text-xl font-serif mb-4">No results found.</p>
-              <button onClick={clearFilters} className="text-emerald-400 font-medium underline">View Full Menu</button>
-          </div>
-      )}
+        )}
+      </div>
 
-      <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} cart={cart} onUpdateQuantity={updateQuantity} onCheckout={handleCheckout} />
+      <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} cart={cart} onUpdateQuantity={updateQuantity} onCheckout={() => { setIsOrderPlaced(true); setCart([]); setIsCartOpen(false); }} />
       <SmartSearch isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} items={FOOD_ITEMS} onResults={handleSearchResults} />
       {isOrderPlaced && <OrderSuccess onClose={() => setIsOrderPlaced(false)} />}
     </div>
